@@ -247,6 +247,8 @@ s:tab("qos",  translate("QoS Settings"),
       QoS configuration page (Network->QoS) to configure other critical QoS settings like Download \
       and Upload speed."))
 
+s:tab("advanced_sip_options",  translate("SIP Settings"))
+
 ringtime = s:taboption("general", Value, "ringtime", translate("Number of Seconds to Ring"),
                  translate("Set the number of seconds to ring users upon incoming calls before hanging up \
                  or going to voicemail, if the voicemail is installed and enabled."))
@@ -289,5 +291,9 @@ p = s:taboption("qos", ListValue, "qos_enabled", translate("Insert QoS Rules"))
 p:value("yes", translate("Yes"))
 p:value("no",  translate("No"))
 p.default = "yes"
+
+p = s:taboption("advanced_sip_options", Flag, "g722_enabled", translate("G722"), translate("Enable G722 codec. Install \"asterisk18-codec-g722\" before enabling this!"))
+p.datatype = bool
+p.default = "no"
 
 return m

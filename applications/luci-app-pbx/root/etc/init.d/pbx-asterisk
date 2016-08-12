@@ -660,11 +660,13 @@ pbx_cook_sip_template()
     local useragent
     local externhost
     local bindport
+    local g722
 
     config_get useragent advanced useragent
     useragent=`escape_non_alpha $useragent`
     config_get externhost advanced externhost
     config_get bindport advanced bindport
+    config_get g722 advanced g722_enabled
 
     [ -z "$useragent" ] && useragent="$USERAGENT"
 
@@ -680,6 +682,10 @@ pbx_cook_sip_template()
         sed -i "s/bindport=|BINDPORT|//g"     $WORKDIR/sip.conf
     else
         sed -i "s/|BINDPORT|/$bindport/g"     $WORKDIR/sip.conf
+    fi
+
+    if [ $g722 -eq 1 ] ; then
+        sed -i 's/^disallow=all$/&\nallow=g722/' $WORKDIR/sip.conf
     fi
 
 
